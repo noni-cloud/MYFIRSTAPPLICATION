@@ -50,9 +50,16 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.firebase.auth)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+
+
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)
+
+
     implementation(libs.firebase.database)
     implementation(libs.firebase.storage)
-    implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
