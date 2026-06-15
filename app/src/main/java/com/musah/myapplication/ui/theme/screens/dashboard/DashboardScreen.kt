@@ -1,5 +1,6 @@
 package com.musah.myapplication.ui.theme.screens.dashboard
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,12 +47,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.musah.myapplication.navigation.ROUTE_INTENT
 import com.musah.myapplication.navigation.ROUTE_CALCULATOR
 import com.musah.myapplication.navigation.ROUTE_SAFARICOM
+import com.musah.myapplication.navigation.ROUTE_ADD_PRODUCT
+import com.musah.myapplication.ui.theme.MyApplicationTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,7 +80,7 @@ fun DashboardScreen(navController: NavHostController) {
         },
         bottomBar = {
             NavigationBar(
-                containerColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.surface,
                 tonalElevation = 8.dp
             ) {
                 items.forEachIndexed { index, item ->
@@ -95,6 +97,7 @@ fun DashboardScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
@@ -116,7 +119,10 @@ fun DashboardScreen(navController: NavHostController) {
                 DashboardHomeContent(navController)
             } else {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "Content for ${items[selectedItem]} coming soon")
+                    Text(
+                        text = "Content for ${items[selectedItem]} coming soon",
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
                 }
             }
         }
@@ -126,7 +132,7 @@ fun DashboardScreen(navController: NavHostController) {
 @Composable
 fun DashboardHomeContent(navController: NavHostController) {
     val dashboardItems = listOf(
-        DashboardItemData("Products", Icons.Filled.ShoppingCart, ""),
+        DashboardItemData("Products", Icons.Filled.ShoppingCart, ROUTE_ADD_PRODUCT),
         DashboardItemData("Services", Icons.Filled.Star, ""),
         DashboardItemData("Intents", Icons.Filled.Call, ROUTE_INTENT),
         DashboardItemData("Calculator", Icons.Filled.Settings, ROUTE_CALCULATOR),
@@ -160,7 +166,10 @@ fun DashboardCard(item: DashboardItemData, navController: NavHostController) {
             },
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(2.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface
+        )
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -186,5 +195,7 @@ fun DashboardCard(item: DashboardItemData, navController: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun DashboardScreenPreview() {
-    DashboardScreen(rememberNavController())
+    MyApplicationTheme {
+        DashboardScreen(rememberNavController())
+    }
 }

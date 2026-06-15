@@ -15,22 +15,34 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.musah.myapplication.R
-import com.musah.myapplication.navigation.ROUTE_HOME
+import com.musah.myapplication.data.AuthViewModel
+import com.musah.myapplication.navigation.ROUTE_DASHBOARD
+import com.musah.myapplication.navigation.ROUTE_LOGIN
 import com.musah.myapplication.navigation.ROUTE_SPLASH
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavHostController) {
+    val context = LocalContext.current
+    val authViewModel = AuthViewModel(navController, context)
+
     LaunchedEffect(key1 = true) {
         delay(2000)
-        navController.navigate(ROUTE_HOME) {
-            popUpTo(ROUTE_SPLASH) { inclusive = true }
+        if (authViewModel.isLoggedIn()) {
+            navController.navigate(ROUTE_DASHBOARD) {
+                popUpTo(ROUTE_SPLASH) { inclusive = true }
+            }
+        } else {
+            navController.navigate(ROUTE_LOGIN) {
+                popUpTo(ROUTE_SPLASH) { inclusive = true }
+            }
         }
     }
 

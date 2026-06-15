@@ -1,6 +1,7 @@
 package com.musah.myapplication.ui.theme.screens.homescreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +31,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.musah.myapplication.R
 import com.musah.myapplication.navigation.ROUTE_REGISTER
+import com.musah.myapplication.ui.theme.MyApplicationTheme
 
 @Composable
 fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -37,6 +39,7 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) 
         Column(
             modifier = modifier
                 .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
                 .padding(innerPadding)
                 .padding(24.dp),
             verticalArrangement = Arrangement.Center,
@@ -63,7 +66,7 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) 
             Spacer(modifier = Modifier.height(48.dp))
 
             Image(
-                painter = painterResource(id = R.drawable.arsenal), // You might want to change this to a generic welcome image later
+                painter = painterResource(id = R.drawable.arsenal), 
                 contentDescription = "Welcome Illustration",
                 modifier = Modifier.size(240.dp),
                 contentScale = ContentScale.Fit
@@ -89,7 +92,8 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) 
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
-                shape = RoundedCornerShape(12.dp)
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.secondary)
             ) {
                 Text("Visit Our Website", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
             }
@@ -100,5 +104,7 @@ fun HomeScreen(navController: NavHostController, modifier: Modifier = Modifier) 
 @Preview(showBackground = true)
 @Composable
 private fun HomePreview() {
-    HomeScreen(rememberNavController())
+    MyApplicationTheme {
+        HomeScreen(rememberNavController())
+    }
 }
