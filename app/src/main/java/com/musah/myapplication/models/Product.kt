@@ -1,9 +1,10 @@
 package com.musah.myapplication.models
 
 data class Product(
-    var name: String = "",
-    var quantity: String = "",
-    var price: String = "",
-    var id: String = "",
-    var imageUrl: String = ""
+    var productname: String? = null,
+    var productcategory: String? = "",
+    var productprice: String? = null,
+    var productquanitity: String? = null,
+    var imageUrl: String? = null,
+    var project_id: String? = null,
 )
